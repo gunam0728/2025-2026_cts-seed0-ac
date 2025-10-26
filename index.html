@@ -422,8 +422,15 @@ if (JSON.stringify(payload).length > 5 * 1024 * 1024) {
                 // [수정] fetch -> XMLHttpRequest로 변경
                 const result = await new Promise((resolve, reject) => {
                     const xhr = new XMLHttpRequest();
-                    xhr.open('POST', APPS_SCRIPT_URL);
-                    xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
+                    xhr.open("POST", WEB_APP_URL, true);
+
+                    const formData = new FormData();
+                    formData.append("payload", JSON.stringify(payload));
+
+                    xhr.onload = function() {
+                      console.log(xhr.responseText);
+                    };
+                    xhr.send(formData);
 
 
                     // 업로드 진행률 모니터링
@@ -602,4 +609,5 @@ if (JSON.stringify(payload).length > 5 * 1024 * 1024) {
     </script>
 </body>
 </html>
+
 
