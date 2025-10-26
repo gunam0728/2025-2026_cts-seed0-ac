@@ -237,7 +237,7 @@
         // ----------------------------------------------------------------------
         // !! 중요 !! - Google Apps Script 배포 후 받은 URL로 교체하세요.
         // ----------------------------------------------------------------------
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypMfnSawkS5DJnPHfLQD2jvRO4_kHNy0ipUaWzTnugHVxXdbPjXUTOcUkhl2f0-vlU8A/exec"; 
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-MNx7_dJ6K9_NDwuhhAmpP_0foPwJJYMeqLbdkxhKYrjliVzHbFVRckThh7Bxn3TO2Q/exec"; 
         // ----------------------------------------------------------------------
 
         const form = document.getElementById('apply-form');
@@ -380,7 +380,36 @@
                     formData: formDataObject,
                     files: filesData
                 };
+// === 디버깅 로그 시작 ===
+                console.log('=== 제출 디버깅 정보 ===');
+                console.log('1. 전송 페이로드 전체 크기:', JSON.stringify(payload).length, 'chars');
+                console.log('2. 파일 개수:', payload.files.length);
+                
+                let totalFileSize = 0;
+                payload.files.forEach((f, i) => {
+                    const fileSize = f.base64.length;
+                    totalFileSize += fileSize;
+                    console.log(`   파일 ${i+1}: ${f.fileKey}`);
+                    console.log(`     - Base64 크기: ${(fileSize / 1024).toFixed(2)} KB`);
+                    console.log(`     - MIME: ${f.mimeType}`);
+                    console.log(`     - 원본 파일명: ${f.name}`);
+                });
+                
+                console.log('3. 전체 파일 크기 합계:', (totalFileSize / 1024 / 1024).toFixed(2), 'MB');
+                
+                // 크기 경고
+                const payloadSizeMB = JSON.stringify(payload).length / 1024 / 1024;
+                if (payloadSizeMB > 10) {
+                    console.warn('⚠️ 경고: 페이로드가 10MB를 초과합니다! (' + payloadSizeMB.toFixed(2) + 'MB)');
+                    console.warn('   → Apps Script 제한(50MB)에 근접할 수 있습니다.');
+                }
+                console.log('=== 디버깅 끝 ===');
+                // === 디버깅 로그 끝 ===
 
+// 5MB 이상이면 경고
+if (JSON.stringify(payload).length > 5 * 1024 * 1024) {
+    console.warn('⚠️ 페이로드가 5MB를 초과합니다!');
+}
                 // 5. Google Apps Script로 전송 (XHR로 변경하여 프로그레스 추적)
                 if (APPS_SCRIPT_URL.includes("YOUR_APPS_SCRIPT_WEB_APP_URL_HERE")) {
                     throw new Error("APPS_SCRIPT_URL이 설정되지 않았습니다. index.html 파일을 수정해주세요.");
