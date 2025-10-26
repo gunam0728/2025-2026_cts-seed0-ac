@@ -222,6 +222,17 @@
                         </svg>
                         <span id="submit-button-text">제출하기</span>
                     </button>
+                    
+                    <!-- 프로그레스바 영역 -->
+                    <div id="progress-container" class="hidden mt-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span id="progress-text" class="text-sm font-medium text-gray-700">준비 중...</span>
+                            <span id="progress-percent" class="text-sm font-semibold text-blue-600">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+                            <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -241,6 +252,12 @@
         const buttonText = document.getElementById('submit-button-text');
         const loadingSpinner = document.getElementById('loading-spinner');
         const messageBox = document.getElementById('message-box');
+        
+        // 프로그레스바 요소
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressPercent = document.getElementById('progress-percent');
 
         // Initialize Choices.js
         const countrySelect = new Choices(document.getElementById('관심 국가'), {
@@ -299,6 +316,7 @@
 
             // 1. 폼 데이터 유효성 검사 (아래 validateForm 함수에서 파일 유효성 검사도 수행)
             //    먼저 텍스트 데이터만 수집
+            updateProgress(5, '입력 내용 검증 중...');
             const formDataForValidation = new FormData(form);
             const dataForValidation = Object.fromEntries(formDataForValidation.entries());
             
@@ -306,6 +324,8 @@
                 setLoading(false);
                 return;
             }
+            
+            updateProgress(10, '파일 업로드 준비 중...');
 
             try {
                 // 2. 폼 데이터 수집 (텍스트)
@@ -333,7 +353,16 @@
                     { id: 'file5', element: document.getElementById('file5'), required: false, multiple: true }
                 ];
                 
-                const filePromises = [];
+                // 전체 파일 개수 계산
+                let totalFiles = 0;
+                for (const input of fileInputs) {
+                    if (input.element.files && input.element.files.length > 0) {
+                        totalFiles += input.element.files.length;
+                    }
+                }
+                
+                const filesData = [];
+                let processedFiles = 0;
 
                 for (const input of fileInputs) {
                     const files = input.element.files;
@@ -343,28 +372,37 @@
                             
                             if (!validateFile(file)) return; // 여기서 중단
                             
-                            filePromises.push(
-                                readFileAsBase64(file).then(base64 => ({
-                                    base64: base64,
-                                    mimeType: file.type,
-                                    name: file.name,
-                                    fileKey: FILE_KEYS[input.id], // 예: "붙임1(참가신청서)"
-                                    targetFolderId: FOLDER_IDS[input.id] // 예: "1O6BnC..."
-                                }))
+                            // 파일 변환 시작
+                            const fileNum = processedFiles + 1;
+                            updateProgress(
+                                10 + (processedFiles / totalFiles) * 60,
+                                `파일 업로드 중... (${fileNum}/${totalFiles})`
                             );
+                            
+                            const base64 = await readFileAsBase64(file);
+                            filesData.push({
+                                base64: base64,
+                                mimeType: file.type,
+                                name: file.name,
+                                fileKey: FILE_KEYS[input.id], // 예: "붙임1(참가신청서)"
+                                targetFolderId: FOLDER_IDS[input.id] // 예: "1O6BnC..."
+                            });
+                            
+                            processedFiles++;
                         }
                     }
                 }
 
-                const filesData = await Promise.all(filePromises);
 
                 // 4. 최종 페이로드 생성
+                updateProgress(70, '데이터 전송 준비 중...');
                 const payload = {
                     formData: formDataObject,
                     files: filesData
                 };
 
                 // 5. Google Apps Script로 전송
+                updateProgress(75, '서버로 데이터 전송 중...');
                 if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE" || APPS_SCRIPT_URL.includes("AKfycbzKFlp5Hj1J00BfZo0EDIVtV9YcZfdk_XPPIUiB6IHn3ytf78ImDboN1ZTufzStYB0XCA")) {
                     // 예시 URL이거나, 사용자가 URL을 수정하지 않은 경우를 대비 (필요시 이 URL 체크 로직 수정)
                     // (참고: YOUR_NEW_FOLDER_ID_FOR_FILE2 검사는 FOLDER_IDS가 모두 채워졌으므로 제거)
@@ -378,10 +416,13 @@
                     },
                 });
 
+                updateProgress(90, '서버 응답 대기 중...');
                 const result = await response.json();
 
                 // 6. 결과 처리
+                updateProgress(95, '제출 완료 처리 중...');
                 if (result.success) {
+                    updateProgress(100, '제출 완료!');
                     showMessage("제출이 성공적으로 완료 되었습니다. 참여해주셔서 감사합니다.", 'success');
                     form.reset();
 
@@ -490,11 +531,22 @@
                 submitButton.disabled = true;
                 buttonText.textContent = '제출 중...';
                 loadingSpinner.classList.remove('hidden');
+                progressContainer.classList.remove('hidden');
+                updateProgress(0, '제출 준비 중...');
             } else {
                 submitButton.disabled = false;
                 buttonText.textContent = '제출하기';
                 loadingSpinner.classList.add('hidden');
+                progressContainer.classList.add('hidden');
+                updateProgress(0, '준비 중...');
             }
+        }
+        
+        // 프로그레스바 업데이트
+        function updateProgress(percent, text) {
+            progressBar.style.width = percent + '%';
+            progressPercent.textContent = Math.round(percent) + '%';
+            progressText.textContent = text;
         }
 
         // 메시지 표시
