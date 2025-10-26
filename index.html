@@ -423,7 +423,7 @@ if (JSON.stringify(payload).length > 5 * 1024 * 1024) {
                 const result = await new Promise((resolve, reject) => {
                     const xhr = new XMLHttpRequest();
                     xhr.open('POST', APPS_SCRIPT_URL);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
 
 
                     // 업로드 진행률 모니터링
@@ -602,3 +602,4 @@ if (JSON.stringify(payload).length > 5 * 1024 * 1024) {
     </script>
 </body>
 </html>
+
