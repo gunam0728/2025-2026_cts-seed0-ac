@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<!-- ============================= -->
+<!-- 🌐 FRONTEND (UI / Form Layer) -->
+<!-- ============================= -->
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -41,24 +46,31 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 md:p-8">
+    <div class="w-full max-w-4xl bg-white p-10 md:p-14 rounded-2xl shadow-xl mx-auto">
+  <div class="mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">2025-2026 KOICA CTS Seed 0</h1>
+    <p class="text-lg md:text-xl text-blue-700 font-semibold">창업초기기업 액셀러레이팅</p>
 
-    <div class="w-full max-w-3xl bg-white p-8 md:p-12 rounded-2xl shadow-xl">
-        
-        <div class="mb-10 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">2025-2026 KOICA CTS Seed 0</h1>
-            <p class="text-lg md:text-xl text-blue-700 font-semibold">창업초기기업 액셀러레이팅</p>
-            
-            <div class="mt-6 text-left text-gray-700 space-y-2 bg-gray-50 p-6 rounded-lg border border-gray-200">
-                <p><span class="font-semibold w-20 inline-block">주최/주관</span>: <span>한국국제협력단(KOICA) / (주)엠와이소셜컴퍼니</span></p>
-                <p><span class="font-semibold w-20 inline-block">접수 기간</span>: <span>2025. 11. 03(월) ~ 2025. 11. 24(월)</span></p>
-                <p><span class="font-semibold w-20 inline-block">지원 대상</span>: <span>업력 7년 이내의 창업 초기 기업 또는 예비 창업자</span></p>
-                
-                <div class="mt-4 text-sm text-blue-600 border border-blue-200 bg-blue-50 p-4 rounded-lg" style="background-color: #eff6ff; border-color: #bfdbfe; color: #2563eb;">
-                    <p class="font-semibold">※ 참고사항</p>
-                    <p class="mt-1">만약 정보 오기입, 파일 재제출 등 필요시, 다시 설문에 응해주시기 바랍니다. 중복 제출시, 설문은 최신 제출본으로 자동 업데이트 됩니다.</p>
-                </div>
-            </div>
-        </div>
+    <div class="mt-6 text-left text-gray-700 space-y-2 bg-gray-50 p-8 rounded-lg border border-gray-200 w-[105%] relative left-1/2 -translate-x-1/2">
+      <p><span class="font-semibold w-18 inline-block">주최/주관:</span> <span>한국국제협력단(KOICA) / (주)엠와이소셜컴퍼니, 카이스트청년창업투자지주(주)</span></p>
+      <p><span class="font-semibold w-18 inline-block">접수 기간:</span> <span>2025. 11. 03(월) ~ 2025. 11. 24(월) ~17:00까지</span></p>
+      <p><span class="font-semibold w-18 inline-block">지원 대상:</span> <span>본 공고일 기준, 예비창업자 및 창업기업(7년이내), 사회적기업(상법상 주식회사이며, 사회적기업인증을 받은 경우)</span></p>
+
+      <div class="mt-4 text-sm text-blue-600 border border-blue-200 bg-blue-50 p-4 rounded-lg"
+        style="background-color: #eff6ff; border-color: #bfdbfe; color: #2563eb;">
+        <p class="font-semibold">※ 참고사항</p>
+        <p class="mt-1">
+          만약 정보 오기입 및 파일 재제출이 필요하면 다시 모든 설문의 응답에 응해주시기 바랍니다.
+          중복 제출시, 설문은 최신 제출본으로 자동 업데이트 됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- 🧾 FORM SECTION START -->
 
         <form id="apply-form" novalidate>
             <div class="space-y-8">
@@ -166,6 +178,36 @@
                     </div>
                 </div>
 
+                <!-- 2-1. 신청 목적 -->
+                <div>
+                <h2 class="text-xl font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-6">
+                    2-1. 신청 목적
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                    <label for="신청 목적" class="block text-sm font-medium text-gray-700 required">신청 목적</label>
+                    <select id="신청 목적" name="신청 목적" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" required>
+                        <option value="" disabled selected>목적을 선택하세요</option>
+                        <option value="KOICA 사업 참여">KOICA 사업 참여</option>
+                        <option value="개도국 난제 해결">개도국 난제 해결</option>
+                        <option value="Seed1, Seed2 참여 희망">Seed1, Seed2 참여 희망</option>
+                        <option value="국제개발협력 사업 희망">국제개발협력 사업 희망</option>
+                        <option value="글로벌 시장 진출">글로벌 시장 진출</option>
+                        <option value="기타">기타 (직접 입력)</option>
+                    </select>
+                    </div>
+
+                    <!-- 기타 선택 시 보이는 입력칸 -->
+                    <div id="신청목적-기타-랩퍼" class="hidden">
+                    <label for="신청 목적 기타" class="block text-sm font-medium text-gray-700">신청 목적 (기타 내용)</label>
+                    <input type="text" id="신청 목적 기타" name="신청 목적 기타" placeholder="기타 목적을 입력하세요"
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                </div>
+
+
                 <div>
                     <h2 class="text-xl font-semibold text-gray-800 border-b border-gray-300 pb-2 mb-6">3. 제출 서류 <span class="text-base text-gray-500 font-medium ml-2">(파일 1개당 30MB 이하)</span></h2>
                     <p class="text-sm text-blue-600 mb-4"><a href="https://www.koica.go.kr/koica_kr/934/subview.do" target="_blank" class="underline">제출 서류 다운로드 페이지로 이동</a></p>
@@ -174,21 +216,21 @@
                             <label for="file1" class="block text-sm font-medium text-gray-700 required">1. 붙임1(참가신청서 및 기업(팀)소개서)</label>
                             <label class="file-input-label mt-1">
                                 <input type="file" id="file1" name="file1" class="hidden" accept=".pdf,.hwp" required onchange="updateFileLabel(this)">
-                                <span class="file-input-text">파일을 선택하세요 (.pdf, .hwp)</span>
+                                <span class="file-input-text">파일을 제출해 주세요 (.pdf, .hwp)</span>
                             </label>
                         </div>
                         <div>
                             <label for="file2" class="block text-sm font-medium text-gray-700 required">2. 붙임2(사업개요서)</label>
                             <label class="file-input-label mt-1">
                                 <input type="file" id="file2" name="file2" class="hidden" accept=".pdf,.hwp" required onchange="updateFileLabel(this)">
-                                <span class="file-input-text">파일을 선택하세요 (.pdf, .hwp)</span>
+                                <span class="file-input-text">파일을 제출해 주세요 (.pdf, .hwp)</span>
                             </label>
                         </div>
                         <div>
                             <label for="file3" class="block text-sm font-medium text-gray-700">3. 붙임3(사업자등록증) (사업자 선택 시 필수)</label>
                             <label class="file-input-label mt-1">
                                 <input type="file" id="file3" name="file3" class="hidden" accept=".pdf,.hwp" onchange="updateFileLabel(this)">
-                                <span class="file-input-text">파일을 선택하세요 (.pdf, .hwp)</span>
+                                <span class="file-input-text">파일을 제출해 주세요 (.pdf, .hwp)</span>
                             </label>
                             <p class="text-xs text-gray-500 mt-1">'개인/법인사업자'를 선택하신 경우에만 제출해 주세요.</p>
                         </div>
@@ -196,14 +238,14 @@
                             <label for="file4" class="block text-sm font-medium text-gray-700 required">4. 붙임4(개인정보 수집 및 이용 동의서)</label>
                             <label class="file-input-label mt-1">
                                 <input type="file" id="file4" name="file4" class="hidden" accept=".pdf,.hwp" required onchange="updateFileLabel(this)">
-                                <span class="file-input-text">파일을 선택하세요 (.pdf, .hwp)</span>
+                                <span class="file-input-text">파일을 제출해 주세요 (.pdf, .hwp)</span>
                             </label>
                         </div>
                         <div>
                             <label for="file5" class="block text-sm font-medium text-gray-700">5. 기타자료 (선택)</label>
                             <label class="file-input-label mt-1">
-                                <input type="file" id="file5" name="file5" class="hidden" accept=".pdf,.hwp" multiple onchange="updateFileLabel(this, true)">
-                                <span class="file-input-text">여러 개 파일을 선택할 수 있습니다 (.pdf, .hwp)</span>
+                                <input type="file" id="file5" name="file5" class="hidden" accept=".zip" multiple onchange="updateFileLabel(this, true)">
+                                <span class="file-input-text">여러 파일을 하나로 압축하여 제출해 주세요 (.zip)</span>
                             </label>
                         </div>
                     </div>
@@ -239,14 +281,45 @@
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script>
-        // ----------------------------------------------------------------------
-        // !! 중요 !! - Google Apps Script 배포 후 받은 URL로 교체하세요.
-        // ----------------------------------------------------------------------
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyggblgwhK4eHiPLl8gUM1CcbWTCh_T6mAp7D3rPhNOS9_gv7nZL9W8soTOkPboeQzIow/exec"; 
-        // ----------------------------------------------------------------------
+<!-- 🧾 FORM SECTION END -->
 
+
+<!-- ============================= -->
+<!-- ⚙️ BACKEND (Logic Layer) -->
+<!-- ============================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+  <!-- ✅ Firebase SDK (compat) + 초기화: 이 블록 전체를 붙여넣기 -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+    <script>
+      // 🔧 Firebase 설정 (콘솔에서 받은 값 그대로)
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdE-qg9x_KCbKTDDaEY8izSL2fQFWBqOc",
+        authDomain: "koica-cts-seed-0-ac.firebaseapp.com",
+        projectId: "koica-cts-seed-0-ac",
+        storageBucket: "koica-cts-seed-0-ac.firebasestorage.app",
+        messagingSenderId: "369745139905",
+        appId: "1:369745139905:web:c956c15e187d8a4fe4dc40",
+        measurementId: "G-CTX3CEMQQM"
+    };
+
+      // 🔥 초기화 + 익명 로그인(규칙 통과용)
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const storage = firebase.storage();
+      const db = firebase.firestore();
+      auth.signInAnonymously().catch(console.error);
+    </script>
+    <!-- ✅ 여기까지가 추가 블록 -->
+
+    <script>
         const form = document.getElementById('apply-form');
         const submitButton = document.getElementById('submit-button');
         const buttonText = document.getElementById('submit-button-text');
@@ -272,14 +345,28 @@
             shouldSort: false,
         });
 
-        // [수정] Google Drive 폴더 ID 매핑 (제공된 새 링크로 업데이트)
-        const FOLDER_IDS = {
-            file1: "1O6BnCHTmyKowds4hdn5eDEkpM3Fm5e8r", // 1. 붙임1
-            file2: "1p9GCykjneJfWP4Da-e5SQv33Bdipe7KH", // 2. 붙임2
-            file3: "1UPiY4cPdj0qdQtJw8TkYEudOlcVdpF68", // 3. 붙임3
-            file4: "1QaN2cQ3A-YpPVki4KyUwQ7Ism2UflMQb", // 4. 붙임4
-            file5: "1eHcAsmKbpzcIIE0EzHBKVscW5lrVaJSN"  // 5. 기타자료
-        };
+        // ✅ 추가: 신청 목적 Choices.js 초기화
+        const purposeSelect = new Choices(document.getElementById('신청 목적'), {
+        searchEnabled: false,
+        itemSelectText: '선택',
+        shouldSort: false,
+        });
+
+        // ✅ 기타 선택 시 입력창 표시
+        document.getElementById('신청 목적').addEventListener('change', () => {
+        const val = purposeSelect.getValue(true);
+        const wrap = document.getElementById('신청목적-기타-랩퍼');
+        if (val === '기타') {
+            wrap.classList.remove('hidden');
+        } else {
+            wrap.classList.add('hidden');
+            document.getElementById('신청 목적 기타').value = '';
+        }
+        });
+
+
+
+
 
         // [수정] 파일 항목명 매핑 (HTML 라벨과 일치)
         const FILE_KEYS = {
@@ -341,111 +428,112 @@
                 // Choices.js로 생성된 필드 값 명시적으로 가져오기
                 formDataObject['관심 국가'] = countrySelect.getValue(true);
                 formDataObject['공모 분야'] = fieldSelect.getValue(true);
+                // ✅ 신청 목적 값 추가
+                formDataObject['신청 목적'] = purposeSelect.getValue(true);
+                formDataObject['신청 목적 기타'] = document.getElementById('신청 목적 기타').value || '';
+                
 
+                // (신규) Firebase 업로드 & Firestore 저장
 
-                // 3. 파일 데이터 수집 (Base64 변환)
-                // [수정] 파일 입력 목록 업데이트 (file1 ~ file5)
-                const fileInputs = [
-                    { id: 'file1', element: document.getElementById('file1'), required: true },
-                    { id: 'file2', element: document.getElementById('file2'), required: true },
-                    { id: 'file3', element: document.getElementById('file3'), required: formDataObject['창업구분'] === '개인/법인사업자' },
-                    { id: 'file4', element: document.getElementById('file4'), required: true },
-                    { id: 'file5', element: document.getElementById('file5'), required: false, multiple: true }
+                // 4. 파일 업로드 + URL 수집
+                updateProgress(75, '파일 업로드 중...');
+
+                const filesMap = {}; // 예: { "붙임1(참가신청서)": ["https://..."], ... }
+                const uploadTargets = [
+                { id: 'file1', el: document.getElementById('file1') },
+                { id: 'file2', el: document.getElementById('file2') },
+                { id: 'file3', el: document.getElementById('file3') },
+                { id: 'file4', el: document.getElementById('file4') },
+                { id: 'file5', el: document.getElementById('file5'), multiple: true },
                 ];
-                
-                // 전체 파일 개수 계산
+                // 업로드 직전 (uploadTargets 선언 바로 아래쯤)
                 let totalFiles = 0;
-                for (const input of fileInputs) {
-                    if (input.element.files && input.element.files.length > 0) {
-                        totalFiles += input.element.files.length;
-                    }
+                for (const t of uploadTargets) {
+                const files = t.el.files;
+                if (files) totalFiles += files.length;
                 }
-                
-                const filesData = [];
+
                 let processedFiles = 0;
 
-                for (const input of fileInputs) {
-                    const files = input.element.files;
-                    if (files && files.length > 0) {
-                        for (let i = 0; i < files.length; i++) {
-                            const file = files[i];
-                            
-                            if (!validateFile(file)) return; // 여기서 중단
-                            
-                            // 파일 변환 시작
-                            const fileNum = processedFiles + 1;
-                            updateProgress(
-                                10 + (processedFiles / totalFiles) * 60,
-                                `파일 업로드 중... (${fileNum}/${totalFiles})`
-                            );
-                            
-                            const base64 = await readFileAsBase64(file);
-                            filesData.push({
-                                base64: base64,
-                                mimeType: file.type,
-                                name: file.name,
-                                fileKey: FILE_KEYS[input.id], // 예: "붙임1(참가신청서)"
-                                targetFolderId: FOLDER_IDS[input.id] // 예: "1O6BnC..."
-                            });
-                            
-                            processedFiles++;
-                        }
+                // 업로드 루프 안쪽, 각 파일 업로드가 끝난 직후:
+                processedFiles++;
+                updateProgress(10 + (processedFiles / Math.max(1, totalFiles)) * 60, `파일 업로드 중... (${processedFiles}/${totalFiles})`);
+
+
+                for (const t of uploadTargets) {
+                    const files = t.el.files;
+                    if (!files || files.length === 0) continue;
+
+                    const key = FILE_KEYS[t.id]; // 예: "붙임1(참가신청서)"
+                    filesMap[key] = [];
+
+                    // 각 파일의 순서 번호 미리 지정
+                    const FILE_ORDER = {
+                        file1: "1",
+                        file2: "2",
+                        file3: "3",
+                        file4: "4",
+                        file5: "5"
+                    };
+
+                    // 📌 2. 기업명 + 제출시각 폴더 생성용 문자열 만들기
+                    const rawTeam = formDataObject['기업(팀)명'] || 'unknown';
+                    const safeTeam = rawTeam.replace(/[^\w\-가-힣]/g, '_'); // 특수문자 제거
+                    const now = new Date();
+                    const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+                    const folderName = `${safeTeam}_${timestamp}`; // 예: 그린테크_2025-10-30_153045
+
+
+                    for (let i = 0; i < files.length; i++) {
+                        const f = files[i];
+                        const order = FILE_ORDER[t.id] || "0";
+                        const label = key; // 붙임1(참가신청서)
+                        const extension = f.name.split('.').pop();
+
+                        // 📌 3. 새 파일명 생성 ("순서_기업명_제출항목.확장자")
+                        const newFileName = `${order}_${safeTeam}_${label}.${extension}`;
+
+                        // 📌 4. Firebase Storage 경로 지정
+                        const path = `submissions/${folderName}/${newFileName}`;
+                        const ref = storage.ref().child(path);
+
+                        // 📌 5. 업로드 실행
+                        await ref.put(f, { contentType: f.type });
+
+                        // 📌 6. 다운로드 URL 저장
+                        const url = await ref.getDownloadURL();
+                        filesMap[key].push(url);
                     }
-                }
+                    }
+                
+                    // 5. Firestore에 텍스트 + 파일URL 저장
+                        updateProgress(88, '데이터 저장 중...');
+                        const doc = {
+                        ...formDataObject, // 기존 폼 텍스트 값들
+                        files: filesMap,   // 업로드한 파일 URL 모음
+                        submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        };
+                        await db.collection('submissions').add(doc);
+
+                        // 6. 완료 UX (기존 성공 처리와 동일하게)
+                        updateProgress(100, '제출 완료!');
+                        showMessage("제출이 성공적으로 완료 되었습니다. 참여해주셔서 감사합니다.", 'success');
+                        form.reset();
+
+                        // Choices.js 초기화
+                        countrySelect.clearInput(); countrySelect.setValue(['']);
+                        fieldSelect.clearInput();   fieldSelect.setValue(['']);
+                        purposeSelect.clearInput(); purposeSelect.setValue(['']);
+                        document.getElementById('신청목적-기타-랩퍼').classList.add('hidden');
+                        document.getElementById('신청 목적 기타').value = '';
 
 
-                // 4. 최종 페이로드 생성
-                updateProgress(70, '데이터 전송 준비 중...');
-                const payload = {
-                    formData: formDataObject,
-                    files: filesData
-                };
-
-                // 5. Google Apps Script로 전송
-                updateProgress(75, '서버로 데이터 전송 중...');
-                if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE" || APPS_SCRIPT_URL.includes("AKfycbzKFlp5Hj1J00BfZo0EDIVtV9YcZfdk_XPPIUiB6IHn3ytf78ImDboN1ZTufzStYB0XCA")) {
-                    // 예시 URL이거나, 사용자가 URL을 수정하지 않은 경우를 대비 (필요시 이 URL 체크 로직 수정)
-                    // (참고: YOUR_NEW_FOLDER_ID_FOR_FILE2 검사는 FOLDER_IDS가 모두 채워졌으므로 제거)
-                }
-
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload),
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8', // Apps Script 웹 앱은 text/plain을 권장
-                    },
-                });
-
-                updateProgress(90, '서버 응답 대기 중...');
-                const result = await response.json();
-
-                // 6. 결과 처리
-                updateProgress(95, '제출 완료 처리 중...');
-                if (result.success) {
-                    updateProgress(100, '제출 완료!');
-                    showMessage("제출이 성공적으로 완료 되었습니다. 참여해주셔서 감사합니다.", 'success');
-                    form.reset();
-
-                    // Choices.js 필드 초기화
-                    countrySelect.clearInput();
-                    countrySelect.setValue(['']); // 플레이스홀더로 리셋
-                    fieldSelect.clearInput();
-                    fieldSelect.setValue(['']); // 플레이스홀더로 리셋
-                    
-                    // 파일 라벨 초기화 (file1 ~ file5)
-                    document.querySelectorAll('.file-input-text').forEach((span, index) => {
-                        const isMultiple = index === 4; // '기타 자료' (5번째, index 4)
-                        if (isMultiple) {
-                            span.textContent = '여러 개 파일을 선택할 수 있습니다 (.pdf, .hwp)';
-                        } else {
-                            span.textContent = '파일을 선택하세요 (.pdf, .hwp)';
-                        }
+                        // 파일 라벨 초기화
+                        document.querySelectorAll('.file-input-text').forEach((span, index) => {
+                        const isMultiple = index === 4;
+                        span.textContent = isMultiple ? '여러 개 파일을 선택할 수 있습니다 (.pdf, .hwp)' : '파일을 선택하세요 (.pdf, .hwp)';
                         span.classList.remove('selected');
-                    });
-                } else {
-                    throw new Error(result.message || "알 수 없는 오류가 발생했습니다.");
-                }
-
+                        });
             } catch (error) {
                 console.error('제출 오류:', error);
                 showMessage(`제출에 실패했습니다: ${error.message}`, 'error');
@@ -459,7 +547,7 @@
         function validateForm(data) { // data를 인자로 받도록 수정
             
             // 필수 텍스트/선택 항목 검사
-            const requiredFields = ['창업구분', '기업(팀)명', '대표 이메일', '대표 연락처', '관심 국가', '공모 분야'];
+            const requiredFields = ['창업구분', '기업(팀)명', '대표 이메일', '대표 연락처', '관심 국가', '공모 분야', '신청 목적'];
             for (const field of requiredFields) {
                 // Choices.js 필드는 data 객체에서 직접 확인
                 const value = (field === '관심 국가' || field === '공모 분야') ? 
@@ -472,6 +560,16 @@
                     return false;
                 }
             }
+            // ✅ 신청 목적이 '기타'일 경우 내용 입력 필수
+            if (document.getElementById('신청 목적').value === '기타') {
+            const etcVal = document.getElementById('신청 목적 기타').value.trim();
+            if (!etcVal) {
+                showMessage("‘신청 목적’에서 ‘기타’를 선택하셨습니다. 내용을 입력해 주세요.", 'error');
+                document.getElementById('신청 목적 기타').focus();
+                return false;
+            }
+            }
+
             
             // [수정] 필수 파일 검사 (file1, file2, file4)
             if (!data.file1.name) {
@@ -496,34 +594,45 @@
             return true;
         }
 
-        // 파일 유효성 검사 (타입, 크기)
-        function validateFile(file) {
-            const allowedTypes = ['application/pdf', 'application/x-hwp', 'application/haansofthwp'];
+        // 파일 유효성 검사 (타입, 크기)  ✅ 교체
+        function validateFile(file, inputId) {
             const maxSize = 30 * 1024 * 1024; // 30MB
-
-            // 확장자 검사
             const extension = file.name.split('.').pop().toLowerCase();
-            const isValidExtension = (extension === 'pdf' || extension === 'hwp');
-            
-            // MIME 타입 검사
-            const isValidMime = allowedTypes.includes(file.type);
+            const mime = file.type || '';
 
-            if (!isValidExtension && !isValidMime) {
-                 if (extension !== 'pdf' && extension !== 'hwp') {
-                    showMessage(`허용되지 않는 파일 형식입니다: ${file.name} (.pdf, .hwp만 가능)`, 'error');
-                    setLoading(false);
-                    return false;
+            // 5번(기타자료)만 ZIP 허용
+            if (inputId === 'file5') {
+                const zipMimes = ['application/zip', 'application/x-zip-compressed'];
+                const isZipByExt  = extension === 'zip';
+                const isZipByMime = zipMimes.includes(mime);
+
+            if (!(isZipByExt || isZipByMime)) {
+                showMessage(`기타자료는 ZIP(.zip)만 업로드 가능합니다: ${file.name}`, 'error');
+                setLoading(false);
+                return false;
+                }
+            } else {
+                // 1~4번은 PDF/HWP만 허용
+                const pdfHwpMimes = ['application/pdf', 'application/x-hwp', 'application/haansofthwp'];
+                const isPdfHwpByExt  = (extension === 'pdf' || extension === 'hwp');
+                const isPdfHwpByMime = pdfHwpMimes.includes(mime);
+
+                if (!(isPdfHwpByExt || isPdfHwpByMime)) {
+                showMessage(`PDF 또는 HWP 파일만 업로드 가능합니다: ${file.name}`, 'error');
+                setLoading(false);
+                return false;
                 }
             }
 
-            // 파일 크기 검사
-            if (file.size > maxSize) {
-                showMessage(`파일 크기 초과 (파일 1개당 최대 30MB): ${file.name}`, 'error');
-                setLoading(false);
-                return false;
-            }
-            return true;
-        }
+  // 크기 제한
+  if (file.size > maxSize) {
+    showMessage(`파일 크기 초과 (파일 1개당 최대 30MB): ${file.name}`, 'error');
+    setLoading(false);
+    return false;
+  }
+  return true;
+}
+
 
         // 로딩 상태 설정
         function setLoading(isLoading) {
@@ -564,16 +673,7 @@
                 messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
-
-        // FileReader를 Promise로 래핑
-        function readFileAsBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = (error) => reject(error);
-                reader.readAsDataURL(file);
-            });
-        }
     </script>
 </body>
 </html>
+
